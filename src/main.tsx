@@ -1,14 +1,18 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
 
-import { BrowserRouter } from "react-router";
+import { BrowserRouter } from 'react-router';
 
-createRoot(document.getElementById("root")!).render(
+import { ThemeProvider } from 'styled-components';
+import { darkTheme } from './theme.ts';
+
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename="/nomad-todoList">
-      <App />
+    <BrowserRouter basename='/nomad-todoList'>
+      <ThemeProvider theme={darkTheme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
 );
