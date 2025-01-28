@@ -22,6 +22,7 @@ export default function Home() {
   const {
     register,
     formState: { errors },
+    setError,
     handleSubmit,
   } = useForm<FormInput>({
     defaultValues: {
@@ -29,15 +30,21 @@ export default function Home() {
     },
   });
 
+  const onValid = (data: FormInput) => {
+    if (data.userNickName === 'coovi') {
+      setError(
+        'userNickName',
+        { message: 'coovi는 개발자 닉네임 입니다.' },
+        { shouldFocus: true } // 해당 위치로 커서 이동
+      );
+    }
+  };
+
   return (
     <div>
       <h2>This_is_Home</h2>
 
-      <form
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}
-      >
+      <form onSubmit={handleSubmit(onValid)}>
         <div>
           <label htmlFor='userId'>ID</label>
           <input
