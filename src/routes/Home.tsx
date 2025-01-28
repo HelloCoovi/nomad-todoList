@@ -23,6 +23,7 @@ export default function Home() {
     register,
     formState: { errors },
     setError,
+    setValue,
     handleSubmit,
   } = useForm<FormInput>({
     defaultValues: {
@@ -37,6 +38,8 @@ export default function Home() {
         { message: 'coovi는 개발자 닉네임 입니다.' },
         { shouldFocus: true } // 해당 위치로 커서 이동
       );
+
+      setValue('userNickName', '');
     }
   };
 
@@ -103,6 +106,13 @@ export default function Home() {
               min: {
                 value: 1,
                 message: '1살 이상부터 이 서비스를 이용 가능합니다.',
+              },
+
+              validate: {
+                over100Age: (value) =>
+                  Number(value ?? 0) >= 100 ? '진짜 100살 넘음?' : true,
+                same99Age: (value) =>
+                  Number(value ?? 0) === 99 ? '진짜 99살?' : true,
               },
             })}
             type='number'
