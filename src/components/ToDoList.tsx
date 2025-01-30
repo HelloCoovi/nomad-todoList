@@ -17,7 +17,7 @@ export default function ToDoList() {
   useEffect(() => {
     const todo = window.localStorage.getItem('todos');
 
-    setToDos(JSON.parse(todo ?? ''));
+    setToDos(JSON.parse(todo ?? "[]"));
   }, []);
 
   return (
