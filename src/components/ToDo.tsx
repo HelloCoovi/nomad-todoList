@@ -15,6 +15,12 @@ export default function ToDo({ text, category, id }: IToDo) {
       )
     );
   };
+  const onClickDelete = () => {
+    setToDos((prevTodos) => {
+      return prevTodos.filter((toDo) => toDo.id !== id);
+    });
+  };
+
   return (
     <li>
       <span>{text}</span>
@@ -33,6 +39,8 @@ export default function ToDo({ text, category, id }: IToDo) {
           Done
         </button>
       )}
+
+      <button onClick={onClickDelete}>Delete</button>
     </li>
   );
 }
