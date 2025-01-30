@@ -1,12 +1,38 @@
-import { IToDo } from '../atoms';
+import React from 'react';
+import { useSetRecoilState } from 'recoil';
+import { IToDo, toDoState } from '../atoms';
 
-export default function ToDo({ text }: IToDo) {
+type toDoCategory = 'TO_DO' | 'DOING' | 'DONE';
+
+export default function ToDo({ text, category, id }: IToDo) {
+  const setToDos = useSetRecoilState(toDoState);
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const targetName = event.currentTarget.name;
+
+    setToDos((prevToDos) =>
+      prevToDos.map((prevToDo, index) =>
+        prevToDo.id === id ? { text, id, category: targetName as toDoCategory } : prevToDo
+      )
+    );
+  };
   return (
     <li>
       <span>{text}</span>
-      <button>Doing</button>
-      <button>To Do</button>
-      <button>Done</button>
+      {category !== 'DOING' && (
+        <button name='DOING' onClick={onClick}>
+          Doing
+        </button>
+      )}
+      {category !== 'TO_DO' && (
+        <button name='TO_DO' onClick={onClick}>
+          To Do
+        </button>
+      )}
+      {category !== 'DONE' && (
+        <button name='DONE' onClick={onClick}>
+          Done
+        </button>
+      )}
     </li>
   );
 }
