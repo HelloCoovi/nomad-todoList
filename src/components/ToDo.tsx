@@ -10,8 +10,10 @@ export default function ToDo({ text, category, id }: IToDo) {
     const targetName = event.currentTarget.name;
 
     setToDos((prevToDos) =>
-      prevToDos.map((prevToDo, index) =>
-        prevToDo.id === id ? { text, id, category: targetName as toDoCategory } : prevToDo
+      prevToDos.map((prevToDo) =>
+        prevToDo.id === id
+          ? { text, id, category: targetName as toDoCategory }
+          : prevToDo
       )
     );
   };
