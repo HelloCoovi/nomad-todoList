@@ -7,17 +7,21 @@ export default function ToDo({ text, category, id }: IToDo) {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const targetName = event.currentTarget.name;
 
-    setToDos((prevToDos) =>
-      prevToDos.map((prevToDo) =>
+    setToDos((prevToDos) => {
+      const newToDos = prevToDos.map((prevToDo) =>
         prevToDo.id === id
-          ? { text, id, category: targetName as Categories }
+          ? { ...prevToDo, category: targetName as Categories }
           : prevToDo
-      )
-    );
+      );
+      localStorage.setItem("todos", JSON.stringify(newToDos));
+      return newToDos;
+    });
   };
   const onClickDelete = () => {
     setToDos((prevTodos) => {
-      return prevTodos.filter((toDo) => toDo.id !== id);
+      const newToDos = prevTodos.filter((toDo) => toDo.id !== id);
+      localStorage.setItem("todos", JSON.stringify(newToDos));
+      return newToDos;
     });
   };
 
